@@ -22,3 +22,5 @@ export async function getImagesByQuery(query, page) {
     throw new Error('Failed to fetch images');
   }
 }
+
+getImagesByQuery();

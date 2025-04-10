@@ -9,7 +9,7 @@ let lightbox = new SimpleLightbox('.gallery a', {
 const gallery = document.querySelector('.gallery');
 
 export function createGallery(images) {
-  const galleryImg = images
+  const galleryMarkup = images
     .map(img => {
       return `
       <li class="gallery-item">
@@ -26,7 +26,7 @@ export function createGallery(images) {
     })
     .join('');
 
-  gallery.insertAdjacentHTML('beforeend', galleryImg);
+  gallery.insertAdjacentHTML('beforeend', galleryMarkup);
   lightbox.refresh();
 }
 
@@ -50,5 +50,6 @@ export function showLoadMoreButton() {
   loadMore.classList.add('is-active');
 }
 
-export function hideLoadMoreButton() {}
-loadMore.classList.remove('is-active');
+export function hideLoadMoreButton() {
+  loadMore.classList.remove('is-active');
+}

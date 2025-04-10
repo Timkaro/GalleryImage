@@ -187,9 +187,6 @@ h3 {
 }
 
 .load-more {
-  /* position: fixed;
-  bottom: 30px;
-  left: 50%; */
   margin: 20px auto;
   display: block;
   opacity: 0;

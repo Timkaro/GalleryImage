@@ -22,7 +22,6 @@ const perPage = 15;
 form.addEventListener('submit', async event => {
   event.preventDefault();
   clearGallery();
-  hideLoadMoreButton();
 
   page = 1;
   query = input.value.trim();
@@ -48,27 +47,17 @@ form.addEventListener('submit', async event => {
     } else {
       createGallery(photos.hits);
 
-      if (page >= totalPages) {
-        hideLoadMoreButton();
-        iziToast.show({
-          message: "We're sorry, but you've reached the end of search results",
-          position: 'center',
-          color: 'red',
-        });
-      } else {
-        showLoadMoreButton();
-      }
+      if (page < totalPages) showLoadMoreButton();
     }
   } catch (error) {
     clearGallery();
     iziToast.show({
-      message: 'Failed to fetch images. Please try again later.',
+      message: "We're sorry, but you've reached the end of search results",
       position: 'center',
       color: 'red',
     });
   }
   hideLoader();
-  hideLoadMoreButton();
 });
 
 loadMore.addEventListener('click', async () => {
@@ -81,7 +70,6 @@ loadMore.addEventListener('click', async () => {
     const totalPages = Math.ceil(totalHits / perPage);
 
     createGallery(photos.hits);
-    showLoadMoreButton();
 
     const galleryItem = document.querySelector('.gallery-item');
     const { height } = galleryItem.getBoundingClientRect();
@@ -90,18 +78,12 @@ loadMore.addEventListener('click', async () => {
       behavior: 'smooth',
     });
 
-    if (page >= totalPages) {
-      hideLoadMoreButton();
-      iziToast.show({
-        message: "We're sorry, but you've reached the end of search results",
-        position: 'center',
-        color: 'red',
-      });
-    }
+    if (page < totalPages) showLoadMoreButton();
   } catch (error) {
+    hideLoadMoreButton();
     iziToast.show({
-      message: 'Failed to fetch images. Please try again later.',
-      position: 'center',
+      message: "We're sorry, but you've reached the end of search results",
+      position: 'bottomCenter',
       color: 'red',
     });
   } finally {
