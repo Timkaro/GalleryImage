@@ -26,7 +26,14 @@ form.addEventListener('submit', async event => {
   page = 1;
   query = input.value.trim();
 
-  if (!query) return;
+  if (!query) {
+    iziToast.show({
+      message: 'Please enter a search term',
+      position: 'topCenter',
+      color: 'yellow',
+    });
+    return;
+  }
 
   showLoader();
 
@@ -47,10 +54,15 @@ form.addEventListener('submit', async event => {
     } else {
       createGallery(photos.hits);
 
-      if (page < totalPages) showLoadMoreButton();
+      if (totalPages > 1) {
+        showLoadMoreButton();
+      } else {
+        hideLoadMoreButton();
+      }
     }
   } catch (error) {
     clearGallery();
+    hideLoadMoreButton();
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results",
       position: 'center',
@@ -78,7 +90,11 @@ loadMore.addEventListener('click', async () => {
       behavior: 'smooth',
     });
 
-    if (page < totalPages) showLoadMoreButton();
+    if (page < totalPages) {
+      showLoadMoreButton();
+    } else {
+      hideLoadMoreButton();
+    }
   } catch (error) {
     hideLoadMoreButton();
     iziToast.show({
