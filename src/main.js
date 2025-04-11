@@ -58,6 +58,11 @@ form.addEventListener('submit', async event => {
         showLoadMoreButton();
       } else {
         hideLoadMoreButton();
+        iziToast.show({
+          message: "We're sorry, but you've reached the end of search results",
+          position: 'bottomCenter',
+          color: 'red',
+        });
       }
     }
   } catch (error) {
@@ -94,6 +99,11 @@ loadMore.addEventListener('click', async () => {
       showLoadMoreButton();
     } else {
       hideLoadMoreButton();
+      iziToast.show({
+        message: "We're sorry, but you've reached the end of search results",
+        position: 'bottomCenter',
+        color: 'red',
+      });
     }
   } catch (error) {
     hideLoadMoreButton();
